@@ -19,3 +19,12 @@ var localTscExists = '${ File.Exists(localTsc) }'
     E("PATH", nodeBin + Path.PathSeparator + E("PATH"));
     Console.WriteLine("PATH:" + E("PATH"));
   }
+  
+#xunit-test target='test' if='Directory.Exists("test")' 
+  @{ 
+    var projectFiles = Files.Include("test/*/project.json"); 
+    foreach (var projectFile in projectFiles) 
+    { 
+        DotnetTest(projectFile, "Debug --no-build -verbose", " "); 
+    } 
+  } 
